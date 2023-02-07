@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<body>
+<h3>Результаты поиска</h3>
+
+<p th:if="${result.isEmpty()}">Книг не найдено</p>
+
+<div th:each="book, iterStat: ${result}">
+    <a th:href="@{/books/{id}(id=${book.id})}"
+       th:text="${iterStat.index+1} + '. ' + ${book.name} + ', ' + ${book.author} + ', ' + ${book.year}">book</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/books">Список книг</a>
+<br/>
+<a href="/books/find">Найти книгу</a>
+<br/>
+<a href="/">Главная</a>
+
+</body>
+</html>

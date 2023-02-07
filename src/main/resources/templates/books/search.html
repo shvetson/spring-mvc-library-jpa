@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+</head>
+<body>
+<h3>Поиск книги</h3>
+
+    <form th:method="GET" th:action="@{/books/search(book=${book})}">
+        <label for="book">Введите поисковый запрос: </label>
+        <input type="text" id="book" name="param" >
+
+        <input type="submit" value="Искать книгу">
+    </form>
+
+<br/>
+<hr/>
+<a href="/books">Список книг</a><br/>
+
+</body>
+</html>

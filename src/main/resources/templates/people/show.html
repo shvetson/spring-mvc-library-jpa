@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+<h3>Страница читателя</h3>
+
+<div>
+    <p th:text="${person.name} + ', ' + ${person.year}">VALUE</p>
+</div>
+
+<span th:if="${books.isEmpty()}">Человек пока не взял ни одной книги</span>
+
+<div th:if="${!books.isEmpty()}">
+    <strong>Книги:</strong>
+    <div th:each="book, iterStat: ${books}">
+        <span th:style="${book.isExpired(10)}? 'color: red; font-weight: bold;'"
+              th:text="${iterStat.index + 1} + '. ' + ${book.name} + ', ' + ${book.author} + ', ' + ${book.year}"></span>
+    </div>
+</div>
+
+<br/>
+<hr/>
+<a href="/people">Список читателей</a><br/>
+<a th:href="@{/people/{id}/edit(id=${person.id})}">Редактирование</a>
+<!--<form th:method="DELETE" th:action="@{/people/{id}(id=${person.id})}">-->
+<form th:method="POST" th:action="@{/people/{id}/delete(id=${person.id})}">
+    <input type="submit" value="Удаление">
+</form>
+
+</body>
+</html>

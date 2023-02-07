@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+</head>
+<body>
+<h3>Информация о книге</h3>
+
+<div>
+    <p th:text="${book.name} + ', ' + ${book.author} + ', ' + ${book.year}">VALUE</p>
+</div>
+
+<div th:if="${person == null}">
+    <span th:text="'Эта книга свободна. Кому назначить ее ?'"></span>
+
+<!--    <form th:method="PATCH" th:action="@{/books/{id}/take(id=${book.id})}">-->
+    <form th:method="POST" th:action="@{/books/{id}/take(id=${book.id})}">
+        <label for="person">Выберите человека: </label>
+
+        <select id="person" th:object="${personTo}" th:field="*{id}">
+            <option th:each="person : ${people}"
+                    th:value="${person.id}"
+                    th:text="${person.name}">
+            </option>
+        </select>
+
+        <input type="submit" value="Назначить книгу">
+    </form>
+</div>
+
+<div th:if="${person != null}">
+    <span th:text="'Книга сейчас у : ' + ${person.name}"></span>
+
+<!--    <form th:method="PATCH" th:action="@{/books/{id}/free(id=${book.id})}">-->
+    <form th:method="POST" th:action="@{/books/{id}/free(id=${book.id})}">
+        <input type="submit" value="Освободить книгу">
+    </form>
+</div>
+
+<br/>
+<hr/>
+<a href="/books">Список книг</a><br/>
+<a th:href="@{/books/{id}/edit(id=${book.id})}">Редактирование</a>
+<!--<form th:method="DELETE" th:action="@{/books/{id}(id=${book.id})}">-->
+<form th:method="POST" th:action="@{/books/{id}/delete(id=${book.id})}">
+    <input type="submit" value="Удаление">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>People</title>
+</head>
+<body>
+<h3>Список всех читателей</h3>
+
+<div th:each="person, iterStat: ${people}">
+    <a th:href="@{/people/{id}(id=${person.id})}"
+       th:text="${iterStat.index+1} + '. ' + ${person.name} + ', ' + ${person.year}">user</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/people/add">Добавить человека</a>
+<br/>
+<a href="/">Главная</a>
+
+</body>
+</html>
